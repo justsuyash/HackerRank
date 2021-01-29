@@ -1,0 +1,11 @@
+https://www.hackerrank.com/challenges/weather-observation-station-7/problem
+
+My SQL:
+
+1.SELECT Distinct(City) from STATION WHERE CITY regexp ".*[aeiou]$"
+
+2.SELECT Distinct(City) from STATION WHERE RIGHT(CITY,1) in ('a','e','i','o','u');
+
+Oracle:
+
+Select Distinct(CITY) from STATION WHERE SUBSTR(CITY,LENGTH(CITY),1) in ('a','e','i','o','u');

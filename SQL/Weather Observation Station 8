@@ -1,0 +1,9 @@
+https://www.hackerrank.com/challenges/weather-observation-station-8/problem
+
+MYSQL :
+
+Select Distinct(City) from STATION where CITY REGEXP "^[aeiou].*[aeiou]$";
+
+ORACLE:
+
+Select distinct(city) from STATION where SUBSTR(CITY,1,1) in ('A','E','I','O','U') and SUBSTR(CITY,LENGTH(CITY),1) in ('a','e','i','o','u');

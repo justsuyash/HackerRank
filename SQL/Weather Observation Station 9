@@ -1,0 +1,16 @@
+https://www.hackerrank.com/challenges/weather-observation-station-9/problem
+
+MYSQL:
+
+1. select distinct(city) from STATION where LEFT(city,1) not in ('A','E','I','O','U'); 
+
+2. select distinct(city) from STATION where CITY REGEXP "^[^aeiou].*";
+
+The first ^ is to make it match the beginning of the String. The second ^ is negation. You need both to work.
+
+If you just did [^aeiou] it would be strings without aeiou. You need the extra ^ in ^[^aeiou] to make sure to match strings that dont BEGIN with aeiou.
+
+Oracle:
+
+select distinct(city) from station where LOWER(SUBSTR(CITY,1,1)) not in ('a','e','i','o','u');
+

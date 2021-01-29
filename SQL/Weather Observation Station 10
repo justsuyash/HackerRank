@@ -1,0 +1,12 @@
+https://www.hackerrank.com/challenges/weather-observation-station-10/problem
+
+MySQL:
+
+1.select distinct(city) from STATION where CITY REGEXP ".*[^aeiou]$" 
+
+2. select distinct(city) from STATION where RIGHT(CITY,1) not in ('a','e','i','o','u');
+
+ORACLE:
+
+
+Select distinct(city) from STATION where SUBSTR(CITY,length(city),1) not in ('a','e','i','o','u');

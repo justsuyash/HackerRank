@@ -1,0 +1,12 @@
+https://www.hackerrank.com/challenges/weather-observation-station-6/problem
+
+SELECT DISTINCT city FROM station WHERE city REGEXP "^[aeiou].*";
+
+
+Another Way  :
+
+Select distinct(CITY) from STATION where City like 'A%';
+Select distinct(CITY) from STATION where City like 'E%';
+Select distinct(CITY) from STATION where City like 'I%';
+Select distinct(CITY) from STATION where City like 'O%';
+Select distinct(CITY) from STATION where City like 'U%';
