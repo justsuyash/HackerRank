@@ -1,0 +1,180 @@
+https://www.hackerrank.com/challenges/tree-level-order-traversal/problem
+
+Note : Self developed solution uses a list to go iterate through 
+
+class Node:
+    def __init__(self, info): 
+        self.info = info  
+        self.left = None  
+        self.right = None 
+        self.level = None 
+
+    def __str__(self):
+        return str(self.info) 
+
+class BinarySearchTree:
+    def __init__(self): 
+        self.root = None
+
+    def create(self, val):  
+        if self.root == None:
+            self.root = Node(val)
+        else:
+            current = self.root
+         
+            while True:
+                if val < current.info:
+                    if current.left:
+                        current = current.left
+                    else:
+                        current.left = Node(val)
+                        break
+                elif val > current.info:
+                    if current.right:
+                        current = current.right
+                    else:
+                        current.right = Node(val)
+                        break
+                else:
+                    break
+
+"""
+Node is defined as
+self.left (the left child of the node)
+self.right (the right child of the node)
+self.info (the value of the node)
+"""
+def levelOrder(root):
+    li = [root]
+    temp = root
+    while li:
+        if temp:
+            temp = li.pop(0)
+            print(temp,end=' ')
+            if temp.left:
+                li.append(temp.left)
+            if temp.right:
+                li.append(temp.right)
+
+
+
+tree = BinarySearchTree()
+t = int(input())
+
+arr = list(map(int, input().split()))
+
+for i in range(t):
+    tree.create(arr[i])
+
+levelOrder(tree.root)
+
+
+
+# Same Solution Puzzle - There is a redundant line in the above code can you figure out which one it is? Comment below.
+
+class Node:
+    def __init__(self, info): 
+        self.info = info  
+        self.left = None  
+        self.right = None 
+        self.level = None 
+
+    def __str__(self):
+        return str(self.info) 
+
+class BinarySearchTree:
+    def __init__(self): 
+        self.root = None
+
+    def create(self, val):  
+        if self.root == None:
+            self.root = Node(val)
+        else:
+            current = self.root
+         
+            while True:
+                if val < current.info:
+                    if current.left:
+                        current = current.left
+                    else:
+                        current.left = Node(val)
+                        break
+                elif val > current.info:
+                    if current.right:
+                        current = current.right
+                    else:
+                        current.right = Node(val)
+                        break
+                else:
+                    break
+
+"""
+Node is defined as
+self.left (the left child of the node)
+self.right (the right child of the node)
+self.info (the value of the node)
+"""
+def levelOrder(root):
+    li = [root]
+    temp = root
+    while li:
+        temp = li.pop(0)
+        print(temp,end=' ')
+        if temp.left:
+            li.append(temp.left)
+        if temp.right:
+            li.append(temp.right)
+
+
+
+tree = BinarySearchTree()
+t = int(input())
+
+arr = list(map(int, input().split()))
+
+for i in range(t):
+    tree.create(arr[i])
+
+levelOrder(tree.root)
+
+
+
+
+### Here is a solution using DEQUEUE
+
+def levelOrder(root):
+    deck = deque()
+    if not root:
+        return None
+    else:
+        deck.append(root)
+        while deck:
+            x = deck.popleft()
+            print x.data,
+            if x.left:
+                deck.append(x.left)
+            if x.right:
+                deck.append(x.right)
+                
+                
+                
+Lists vs Deques :
+
+This is actually less efficient since pop(0) is an O(n) operation in python. Removing from the front of a list (as opposed to the end) is highly inefficient. The other solution above using deque is actually better than this since deques are optimized for constant time pops and appends from both ends.
+
+
+
+Another Solution Using Deque:
+
+from collections import deque
+
+def levelOrder(root):
+    queue = deque([root])
+    while queue:
+        node = queue.popleft()
+        print(node.info, end=' ')
+        if node.left:
+            queue.append(node.left)
+        if node.right:
+            queue.append(node.right)
+    print()

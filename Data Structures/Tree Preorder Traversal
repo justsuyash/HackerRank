@@ -1,0 +1,152 @@
+https://www.hackerrank.com/challenges/tree-preorder-traversal/problem
+
+Note : First is the iterative solution, the recursive solution is a lot simpler but iterative is good to know. Also the last soulution is the one with space complexity of O(1) a.k.a in place merge sort.
+
+class Node:
+    def __init__(self, info): 
+        self.info = info  
+        self.left = None  
+        self.right = None 
+        self.level = None 
+
+    def __str__(self):
+        return str(self.info) 
+
+class BinarySearchTree:
+    def __init__(self): 
+        self.root = None
+
+    def create(self, val):  
+        if self.root == None:
+            self.root = Node(val)
+        else:
+            current = self.root
+         
+            while True:
+                if val < current.info:
+                    if current.left:
+                        current = current.left
+                    else:
+                        current.left = Node(val)
+                        break
+                elif val > current.info:
+                    if current.right:
+                        current = current.right
+                    else:
+                        current.right = Node(val)
+                        break
+                else:
+                    break
+
+"""
+Node is defined as
+self.left (the left child of the node)
+self.right (the right child of the node)
+self.info (the value of the node)
+"""
+def preOrder(root):
+    li = []
+    p = root
+    while True:
+        while (root):
+            print(root,end =' ')
+            li.append(root)
+            root = root.left
+        
+        if len(li)<1:
+            break
+
+        root = li.pop()
+        root = root.right
+
+
+
+tree = BinarySearchTree()
+t = int(input())
+
+arr = list(map(int, input().split()))
+
+for i in range(t):
+    tree.create(arr[i])
+
+preOrder(tree.root)
+
+
+##############Second Silution#################
+
+
+class Node:
+    def __init__(self, info): 
+        self.info = info  
+        self.left = None  
+        self.right = None 
+        self.level = None 
+
+    def __str__(self):
+        return str(self.info) 
+
+class BinarySearchTree:
+    def __init__(self): 
+        self.root = None
+
+    def create(self, val):  
+        if self.root == None:
+            self.root = Node(val)
+        else:
+            current = self.root
+         
+            while True:
+                if val < current.info:
+                    if current.left:
+                        current = current.left
+                    else:
+                        current.left = Node(val)
+                        break
+                elif val > current.info:
+                    if current.right:
+                        current = current.right
+                    else:
+                        current.right = Node(val)
+                        break
+                else:
+                    break
+
+"""
+Node is defined as
+self.left (the left child of the node)
+self.right (the right child of the node)
+self.info (the value of the node)
+"""
+def preOrder(root):
+    if root:
+        print(root,end=" ")
+
+        if root.left:
+            preOrder(root.left)
+        
+        if root.right:
+            preOrder(root.right)
+
+
+
+tree = BinarySearchTree()
+t = int(input())
+
+arr = list(map(int, input().split()))
+
+for i in range(t):
+    tree.create(arr[i])
+
+preOrder(tree.root)
+
+
+
+
+
+
+
+
+
+##############Note for O(1) ir Morris Traversal###############
+
+No it is not, this would be a terrible solution if it is part of a multithreaded program other threads might use the tree at same time and assume incorrectly that the tree actually is a tree (since the code introduces cycles). It would also be a terrible solution if you did something more complicated with each node value than just printing them, since if an exception is thrown the tree may no longer be a tree (since it might have one cycle). While recursive solutions has their own problems (such as heavy use of the call stack) theses problems are local and easier to maintain. Other non-recursive solutions where you introduce temporary data structures (such as stacks) are preferable unless you are running on a system with very strict memory restrictions, but in those cases you would not use Java anyway.

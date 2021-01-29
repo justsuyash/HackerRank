@@ -1,0 +1,210 @@
+https://www.hackerrank.com/challenges/detect-whether-a-linked-list-contains-a-cycle/problem
+
+Note : This below method has been done with help of lists, we simply store the node in a list and check if it comes up again. Since the node stores address and the data another node with and equivalent data will never be the same. This is also slightly better than rabbit and hare solution. Given below since we dont have to traverse until the end of the list. A third solution is provides to even avoid the memory overhead associated with creating a list such as in this first solution
+
+I havent completed a third one because I havent been able to compare the addresses if nodes, but I am unsure if it will always work. For example in cases where 2 nodes have been merged.
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+class SinglyLinkedListNode:
+    def __init__(self, node_data):
+        self.data = node_data
+        self.next = None
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def insert_node(self, node_data):
+        node = SinglyLinkedListNode(node_data)
+
+        if not self.head:
+            self.head = node
+        else:
+            self.tail.next = node
+
+
+        self.tail = node
+
+def print_singly_linked_list(node, sep, fptr):
+    while node:
+        fptr.write(str(node.data))
+
+        node = node.next
+
+        if node:
+            fptr.write(sep)
+
+# Complete the has_cycle function below.
+
+#
+# For your reference:
+#
+# SinglyLinkedListNode:
+#     int data
+#     SinglyLinkedListNode next
+#
+#
+def has_cycle(head):
+    
+    temp = head
+    li = [temp]
+    while temp:
+        temp = temp.next
+        if temp in li:
+            return True
+        else:
+            li.append(temp)
+    return False
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    tests = int(input())
+
+    for tests_itr in range(tests):
+        index = int(input())
+
+        llist_count = int(input())
+
+        llist = SinglyLinkedList()
+
+        for _ in range(llist_count):
+            llist_item = int(input())
+            llist.insert_node(llist_item)
+
+        extra = SinglyLinkedListNode(-1);
+        temp = llist.head;
+
+        for i in range(llist_count):
+            if i == index:
+                extra = temp
+
+            if i != llist_count-1:
+                temp = temp.next
+
+        temp.next = extra
+
+        result = has_cycle(llist.head)
+
+        fptr.write(str(int(result)) + '\n')
+
+    fptr.close()
+    
+    
+## Rabbit and Hare : FLoydds Cycle Detection Algorithm:
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+class SinglyLinkedListNode:
+    def __init__(self, node_data):
+        self.data = node_data
+        self.next = None
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def insert_node(self, node_data):
+        node = SinglyLinkedListNode(node_data)
+
+        if not self.head:
+            self.head = node
+        else:
+            self.tail.next = node
+
+
+        self.tail = node
+
+def print_singly_linked_list(node, sep, fptr):
+    while node:
+        fptr.write(str(node.data))
+
+        node = node.next
+
+        if node:
+            fptr.write(sep)
+
+# Complete the has_cycle function below.
+
+#
+# For your reference:
+#
+# SinglyLinkedListNode:
+#     int data
+#     SinglyLinkedListNode next
+#
+#
+def has_cycle(head):
+    
+    temp_slow = head
+    temp_fast = head
+    while temp_fast != None and temp_fast.next!=None:
+        temp_slow = temp_slow.next
+        temp_fast = temp_fast.next.next
+
+        if temp_fast == temp_slow:
+            return True
+
+    return False
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    tests = int(input())
+
+    for tests_itr in range(tests):
+        index = int(input())
+
+        llist_count = int(input())
+
+        llist = SinglyLinkedList()
+
+        for _ in range(llist_count):
+            llist_item = int(input())
+            llist.insert_node(llist_item)
+
+        extra = SinglyLinkedListNode(-1);
+        temp = llist.head;
+
+        for i in range(llist_count):
+            if i == index:
+                extra = temp
+
+            if i != llist_count-1:
+                temp = temp.next
+
+        temp.next = extra
+
+        result = has_cycle(llist.head)
+
+        fptr.write(str(int(result)) + '\n')
+
+    fptr.close()
+    
+    
+    
+## Fourth
+
+def has_cycle(head):
+    count = 0
+    
+    while head and count<101:
+        count += 1
+        head = head.next
+        
+    return count>100

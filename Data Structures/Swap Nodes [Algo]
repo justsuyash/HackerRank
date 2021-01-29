@@ -1,0 +1,99 @@
+https://www.hackerrank.com/challenges/swap-nodes-algo/problem
+
+Note : I saw a lot of people complaining and rightly so, this is a worded question also the inputs for tree are not in a good way. So first we have to create a tree and then we have to do an in order traversal. then return the result. If you ask me this question should be worth 500 points.
+
+#!/bin/python3
+
+import os
+import sys
+sys.setrecursionlimit(2000)
+from collections import deque
+
+
+class Node(object):
+    def __init__(self, data=None):
+        self.data = data
+        self.left = None
+        self.right = None
+        self.depth = 1
+
+
+class Tree(object):
+    def __init__(self):
+        self.root = Node(1)
+
+    def create_tree(self, data):
+        queue = deque()
+        data.reverse()
+        queue.append(self.root)
+        while queue:
+            node = queue.popleft()
+            left, right = data.pop()
+            if left != -1:
+                node.left = Node(left)
+                node.left.depth = node.depth + 1
+                queue.append(node.left)
+            if right != -1:
+                node.right = Node(right)
+                node.right.depth = node.depth + 1
+                queue.append(node.right)
+
+    def swap_node(self, k):
+        queue = deque()
+        queue.append(self.root)
+        while queue:
+            node = queue.popleft()
+            if node.depth % k == 0:
+                node.left, node.right = node.right, node.left
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+
+    def in_order_traverse(self, node, result):
+        if node:
+            self.in_order_traverse(node.left, result)
+            result.append(node.data)
+            self.in_order_traverse(node.right, result)
+        return result
+
+
+def swapNodes(indexes, queries):
+    result1 = []
+    tree = Tree()
+    tree.create_tree(indexes)
+    for k in queries:
+        tree.swap_node(k)
+        result = tree.in_order_traverse(tree.root, [])
+        result1.append(result)
+
+    return(result1)
+        
+
+    
+
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input())
+
+    indexes = []
+
+    for _ in range(n):
+        indexes.append(list(map(int, input().rstrip().split())))
+
+    queries_count = int(input())
+
+    queries = []
+
+    for _ in range(queries_count):
+        queries_item = int(input())
+        queries.append(queries_item)
+
+    result = swapNodes(indexes, queries)
+
+    fptr.write('\n'.join([' '.join(map(str, x)) for x in result]))
+    fptr.write('\n')
+
+    fptr.close()

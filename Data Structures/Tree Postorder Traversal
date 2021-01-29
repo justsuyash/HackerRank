@@ -1,0 +1,162 @@
+https://www.hackerrank.com/challenges/tree-postorder-traversal/problem
+
+
+Note : 3 solutions are being provided for the better understanding
+
+#Basic recursive solution using two lists.
+
+
+class Node:
+    def __init__(self, info): 
+        self.info = info  
+        self.left = None  
+        self.right = None 
+        self.level = None 
+
+    def __str__(self):
+        return str(self.info) 
+
+class BinarySearchTree:
+    def __init__(self): 
+        self.root = None
+
+    def create(self, val):  
+        if self.root == None:
+            self.root = Node(val)
+        else:
+            current = self.root
+         
+            while True:
+                if val < current.info:
+                    if current.left:
+                        current = current.left
+                    else:
+                        current.left = Node(val)
+                        break
+                elif val > current.info:
+                    if current.right:
+                        current = current.right
+                    else:
+                        current.right = Node(val)
+                        break
+                else:
+                    break
+
+"""
+Node is defined as
+self.left (the left child of the node)
+self.right (the right child of the node)
+self.info (the value of the node)
+"""
+def postOrder(root):
+    li = []
+    li2 = []
+    while root:
+        if root not in li:
+            li.append(root)
+            if root.left:
+                root = root.left
+        else:
+            if len(li)<1:
+                break 
+            else:
+                if (root.right) and (root.right not in li2):
+                    root = root.right
+                else:
+                    print(root.info,end=' ')
+                    temp = li.pop()
+                    li2.append(temp)
+                    if len(li)<1:
+                        break
+                    else:
+                        root = li[-1]
+                        
+
+
+tree = BinarySearchTree()
+t = int(input())
+
+arr = list(map(int, input().split()))
+
+for i in range(t):
+    tree.create(arr[i])
+
+postOrder(tree.root)
+
+
+
+
+
+### Second Method - Recursive call ###
+
+class Node:
+    def __init__(self, info): 
+        self.info = info  
+        self.left = None  
+        self.right = None 
+        self.level = None 
+
+    def __str__(self):
+        return str(self.info) 
+
+class BinarySearchTree:
+    def __init__(self): 
+        self.root = None
+
+    def create(self, val):  
+        if self.root == None:
+            self.root = Node(val)
+        else:
+            current = self.root
+         
+            while True:
+                if val < current.info:
+                    if current.left:
+                        current = current.left
+                    else:
+                        current.left = Node(val)
+                        break
+                elif val > current.info:
+                    if current.right:
+                        current = current.right
+                    else:
+                        current.right = Node(val)
+                        break
+                else:
+                    break
+
+"""
+Node is defined as
+self.left (the left child of the node)
+self.right (the right child of the node)
+self.info (the value of the node)
+"""
+def postOrder(root):
+    if root.left:
+        postOrder(root.left)
+    if root.right:
+        postOrder(root.right)
+    print(root.info, end=' ')
+
+
+
+
+tree = BinarySearchTree()
+t = int(input())
+
+arr = list(map(int, input().split()))
+
+for i in range(t):
+    tree.create(arr[i])
+
+postOrder(tree.root)
+
+
+##### Third Method Recursive(teensy bit slower but the complexity is the same ###########
+Note : Its slower becacuse we are letting the entire recursion follow through and then checking if a node exists hoever the if call check is little bit faster than recursion so we dont make the cost 0 but subtract a bit
+
+def postOrder(root):
+    if root:
+        postOrder(root.left)
+        postOrder(root.right)
+        print(root.data, end=' ')
