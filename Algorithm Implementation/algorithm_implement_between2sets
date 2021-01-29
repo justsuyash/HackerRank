@@ -1,0 +1,68 @@
+https://www.hackerrank.com/challenges/between-two-sets/problem
+
+Note : One of the most intuitive solutions and one of the fastest too(have to check on the fastest)
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'getTotalX' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER_ARRAY a
+#  2. INTEGER_ARRAY b
+#
+
+def gcd (a,b):
+    if (a==0):
+        return b
+    else:
+        return gcd(b%a,a)
+
+def lcm(a,b):
+    return (a*b)//gcd(a,b)
+
+def getTotalX(a, b):
+    gcd_c = b[0]
+    lcm_c = 1
+    for i in range(len(a)):
+        lcm_c = lcm(lcm_c,a[i])
+    
+        count = 0
+    
+    for i in range(len(b)):
+        gcd_c =  gcd(gcd_c,b[i])
+    
+    for i in range(lcm_c,gcd_c+1,lcm_c):
+        if gcd_c%i == 0:
+            count = count+1
+    return count
+
+
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    first_multiple_input = input().rstrip().split()
+
+    n = int(first_multiple_input[0])
+
+    m = int(first_multiple_input[1])
+
+    arr = list(map(int, input().rstrip().split()))
+
+    brr = list(map(int, input().rstrip().split()))
+
+    total = getTotalX(arr, brr)
+
+    fptr.write(str(total) + '\n')
+
+    fptr.close()
+
+    
