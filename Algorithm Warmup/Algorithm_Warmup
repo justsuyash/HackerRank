@@ -1,0 +1,295 @@
+#Solve Me First
+
+def solveMeFirst(a,b):
+    c = a+b
+    return c
+
+
+num1 = int(input())
+num2 = int(input())
+res = solveMeFirst(num1,num2)
+print(res)
+
+
+#Grading Students
+
+
+#!/bin/python3
+
+import os
+import sys
+
+#
+# Complete the simpleArraySum function below.
+#
+def simpleArraySum(ar):
+    #
+    sum_arr = sum(ar)
+
+    return sum_arr
+    #
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    ar_count = int(input())
+
+    ar = list(map(int, input().rstrip().split()))
+
+    result = simpleArraySum(ar)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+
+
+#Compare the Triplets
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the compareTriplets function below.
+def compareTriplets(a, b):
+    bob = 0
+    sam = 0
+    for i in range(len(a)):
+        if a[i]>b[i]:
+            bob += 1
+        elif a[i]<b[i]:
+            sam += 1
+    return bob,sam
+
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    a = list(map(int, input().rstrip().split()))
+
+    b = list(map(int, input().rstrip().split()))
+
+    result = compareTriplets(a, b)
+
+    fptr.write(' '.join(map(str, result)))
+    fptr.write('\n')
+
+    fptr.close()
+
+
+
+# A Very Big Sum
+
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the aVeryBigSum function below.
+def aVeryBigSum(ar):
+    sum_arr = sum(ar)
+
+    return sum_arr
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    ar_count = int(input())
+
+    ar = list(map(int, input().rstrip().split()))
+
+    result = aVeryBigSum(ar)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+
+
+#Diagonal Difference
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'diagonalDifference' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts 2D_INTEGER_ARRAY arr as parameter.
+#
+
+def diagonalDifference(arr):
+    diag1 = 0
+    diag2 = 0
+    k = len(arr)-1
+    for i in range(len(arr)):
+        diag1  += arr[i][i]
+        diag2 += arr[i][k-i]
+        
+    diff  = abs(diag1-diag2)
+
+    return diff
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    arr = []
+
+    for _ in range(n):
+        arr.append(list(map(int, input().rstrip().split())))
+
+    result = diagonalDifference(arr)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+
+
+#Plus Minus
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the plusMinus function below.
+def plusMinus(arr):
+
+    minus = 0
+    positive = 0
+    zeros = 0
+
+    for i in range(len(arr)):
+        if arr[i] < 0:
+            minus += 1
+        elif arr[i]>0:
+            positive += 1
+        elif arr[i] == 0:
+            zeros += 1
+    
+    print('{0:.6f}'.format(positive/len(arr)))
+    print('{0:.6f}'.format(minus/len(arr)))
+    print('{0:.6f}'.format(zeros/len(arr)))
+
+    
+if __name__ == '__main__':
+    n = int(input())
+
+    arr = list(map(int, input().rstrip().split()))
+
+    plusMinus(arr)
+
+
+
+
+# Staircase
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the staircase function below.
+def staircase(n):
+    for i in range(1,n+1):
+        print(' '*(n-i)+'#'*i)
+
+if __name__ == '__main__':
+    n = int(input())
+
+    staircase(n)
+
+
+##  Birthday Cake Candles
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the birthdayCakeCandles function below.
+def birthdayCakeCandles(ar):
+
+    maximum = max(ar)
+    count = ar.count(maximum)
+    return (count)
+
+
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    ar_count = int(input())
+
+    ar = list(map(int, input().rstrip().split()))
+
+    result = birthdayCakeCandles(ar)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+
+
+## Time Conversion
+
+
+#!/bin/python3
+
+import os
+import sys
+
+#
+# Complete the timeConversion function below.
+#
+def timeConversion(s):
+    time  = s.split(":")
+
+    if s[-2:] == 'PM' :
+        if time[0]!='12':
+            time[0]  = str(int(time[0])+12)
+    else:
+        if time[0] == '12':
+            time[0] = '00'
+    
+    r = ':'.join(time)
+    return str(r[:-2])
+
+if __name__ == '__main__':
+    f = open(os.environ['OUTPUT_PATH'], 'w')
+
+    s = input()
+
+    result = timeConversion(s)
+
+    f.write(result + '\n')
+
+    f.close()
+
+
